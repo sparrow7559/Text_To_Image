@@ -1,4 +1,4 @@
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -54,3 +54,21 @@ const loginUser = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+const userCredits = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const user = await userModel.findById(userId);
+    res.json({
+      success: true,
+      credits: user.creditBalance,
+      user: { name: user.name },
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { registerUser, loginUser, userCredits };
