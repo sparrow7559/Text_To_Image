@@ -9,7 +9,7 @@ const AppContextProvider = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const [credit, setCredit] = useState(false);
+  const [credit, setCredit] = useState(0);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -19,7 +19,7 @@ const AppContextProvider = (props) => {
         headers: { token },
       });
       if (data.success) {
-        setCredit(data.credit);
+        setCredit(data.credits);
         setUser(data.user);
       }
     } catch (error) {

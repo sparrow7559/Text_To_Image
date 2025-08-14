@@ -11,6 +11,10 @@ const userAuth = async (req, res, next) => {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
     if (tokenDecode.id) {
+      // Initialize req.body if it doesn't exist (for GET requests)
+      if (!req.body) {
+        req.body = {};
+      }
       req.body.userId = tokenDecode.id;
     } else {
       return res.json({
@@ -20,7 +24,7 @@ const userAuth = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    console.log(error);
+    console.log("Token verification error:", error);
     res.json({ success: false, message: error.message });
   }
 };
