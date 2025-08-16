@@ -22,6 +22,7 @@ const Result = () => {
         setImage(image);
       }
     }
+    setLoading(false);
   };
 
   return (
